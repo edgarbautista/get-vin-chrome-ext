@@ -13,3 +13,8 @@ currentDiv.focus();
 currentDiv.select();
 
 document.execCommand("copy");
+
+
+setTimeout(function () {
+    window.close();
+}, 1000);
