@@ -1,20 +1,38 @@
 var inputElementId = "vin";
+var requestURL = "https://www.randomvinbarcode.com/.netlify/functions/randomVin?type=real";
+var requestMethod = "GET";
 
-var xhr = new XMLHttpRequest();
+async function getVIN() {
+    var xhr = new XMLHttpRequest();
+    xhr.open(requestMethod, requestURL, false);
+    xhr.send();
+    var result = JSON.parse(xhr.responseText);
+    setWindowCopyVin(result);
+}
 
-xhr.open("GET", "https://www.randomvinbarcode.com/.netlify/functions/randomVin?type=real", false);
-xhr.send();
+function setWindowCopyVin(result) {
+    setVINOnWindow(result.vin, inputElementId);
+    copyTextFromElementById(inputElementId);
+    setTimeoutOfWindowClose(1000);
+}
 
-var result = JSON.parse(xhr.responseText);
+function setVINOnWindow(vin, id) {
+    var currentDiv = document.getElementById(id);
+    currentDiv.value = vin;
+}
 
-var currentDiv = document.getElementById(inputElementId);
-currentDiv.value = result.vin;
-currentDiv.focus();
-currentDiv.select();
+function copyTextFromElementById(id) {
+    var currentDiv = document.getElementById(id);
+    currentDiv.focus();
+    currentDiv.select();
+    document.execCommand("copy");
 
-document.execCommand("copy");
+}
 
+function setTimeoutOfWindowClose(time) {
+    setTimeout(function () {
+        window.close();
+    }, time);
+}
 
-setTimeout(function () {
-    window.close();
-}, 1000);
+getVIN();
