@@ -2,12 +2,18 @@ var inputElementId = "vin";
 var requestURL = "https://www.randomvinbarcode.com/.netlify/functions/randomVin?type=real";
 var requestMethod = "GET";
 
-async function getVIN() {
-    var xhr = new XMLHttpRequest();
-    xhr.open(requestMethod, requestURL, false);
-    xhr.send();
-    var result = JSON.parse(xhr.responseText);
-    setWindowCopyVin(result);
+var xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var result = JSON.parse(this.responseText);
+        setWindowCopyVin(result);
+    }
+};
+
+function getVIN() {
+    xhttp.open(requestMethod, requestURL, true);
+    xhttp.send();
 }
 
 function setWindowCopyVin(result) {

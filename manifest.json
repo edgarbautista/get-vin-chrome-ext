@@ -3,6 +3,10 @@
   "name": "Edgar Bautista",
   "description": "A extension for getting a VIN quickly.",
   "version": "1.0",
+  "content_scripts": [{
+    "js": ["jquery.min.js", "bootstrap.min.js", "get_vin.js"],
+    "matches": ["http://*/*", "https://*/*"]
+  }],
   "browser_action": {
     "default_icon": "vin.png",
     "default_popup": "popup.html"
