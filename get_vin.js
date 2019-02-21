@@ -17,7 +17,8 @@ function getVIN() {
 }
 
 function setWindowCopyVin(result) {
-    setVINOnWindow(result.vin, inputElementId);
+    var vin = (result && result.vin) || 'Error: No VIN found.';
+    setVINOnWindow(vin, inputElementId);
     copyTextFromElementById(inputElementId);
     setTimeoutOfWindowClose(1000);
 }
